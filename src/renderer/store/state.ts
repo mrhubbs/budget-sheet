@@ -7,58 +7,34 @@ export default {
   // caches the last-open paths for various file dialogs
   fileDialogs: {},
   sheet: {
-    // cols: {
-    //   dates: [
-    //     moment('2018-02-08'),
-    //     moment('2018-02-09')
-    //   ],
-    //   categories: [{
-    //     catId: 0,
-    //     transactions: [{
-    //       amount: 17,
-    //     }, {
-    //       amount: 10
-    //     }]
-    //   }, {
-    //     catId: 1,
-    //     transactions: [{
-    //       amount: -20,
-    //       amount: 100
-    //     }]
-    //   }],
-    //   totals: [
-    //     -3,
-    //     107
-    //   ]
-    // }
-    rows: [{
-      id: 0,
-      transactions: [{
-        transaction: 17.00,
-        runningTotal: 0.00, id: 0, catId: 0,
+    cols: {
+      // 'dates', 'categories.transactions', and 'totals' must always be the same length
+      dates: [{
+          date: moment('2018-02-08'),
+          invalid: false
+        }, {
+          date: moment('2018-02-09'),
+          invlaid: false
+        }
+      ],
+      categories: [{
+        id: 0,
+        transactions: [{
+          amount: 17
+        }, {
+          amount: 10
+        }]
       }, {
-        transaction: 10.00,
-        runningTotal: 0.00, id: 1, catId: 1,
-      }, {
-        transaction: 10.00,
-        runningTotal: 0.00, id: 2, catId: 2,
+        id: 1,
+        transactions: [{
+          amount: -20
+        }, {
+          amount: 100
+        }]
       }],
-      date: moment('2018-02-08'),
+      totals: [ ]
     },
-    {
-      id: 1,
-      transactions: [{
-        transaction: 10.00,
-        runningTotal: 0.00, id: 0, catId: 0,
-      }, {
-        transaction: 10.00,
-        runningTotal: 0.00, id: 1, catId: 1,
-      }, {
-        transaction: 10.00,
-        runningTotal: 0.00, id: 2, catId: 2,
-      }],
-      date: moment('2018-02-09'),
-      showRowTotal: true
-    }]
+    // Rows we show the category totals for
+    totalRows: [ 1 ]
   }
 }

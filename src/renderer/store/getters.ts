@@ -1,25 +1,36 @@
 
 
 export default {
-  getCategoryTotal: (state) => (rowId, cellId) => {
-    return state.sheet.rows.reduce((total, row) => {
-      // finished summing up to the point we need to...
-      if (row.id > rowId) return total
+  // Maps the columns-first data into rows first
+  sheetAsRows: (state) => {
+    console.log('hi')
+    let rows = []
+    const sheet = state.sheet
+    const cols = sheet.cols
 
-      const cell = row.transactions[cellId]
+    // re-map the data into row-based from column-based
+    for (let i = 0; i < cols.dates.length; i++) {
+      // TODO: add robustness in case 'dates', 'categories.transactions', and 'totals'
+      // are not the same length
+      rows.push({
+        idx: i,
+        date: {
+          ...cols.dates[i]
+        },
+        // TODO: order categories by set order
+        categories: cols.categories.map((cat, ci) => {
+          return {
+            idx: ci,
+            ...cat.transactions[i]
+          }
+        }),
+        total: {
+          ...cols.totals[i]
+        },
+        showTotal: sheet.totalRows.includes(i)
+      })
+    }
 
-      if (cell === undefined || cell.inactive) return total
-      else return total + cell.transaction
-    }, 0.00)
-  },
-  getRowTotal: (state, getters) => (rowId) => {
-    const row = state.sheet.rows[rowId]
-
-    if (row === undefined) return null
-
-    return row.transactions.reduce((total, cell) => {
-      if (cell.inactive) return total
-      else return total + getters.getCategoryTotal(rowId, cell.id)
-    }, 0.00)
+    return rows
   }
 }

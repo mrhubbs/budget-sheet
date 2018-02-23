@@ -11,16 +11,16 @@
   @import '../palette.scss';
 
   .cell {
-    width: 120px;
+    width: $cell-width;
+    height: $cell-height;
     border: solid 1px $cell-border-color;
 
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
 
     text-align: center;
     font-family: monospace;
-    font-size: 1.4rem;
+    font-size: $cell-font-size-large;
   }
 
 </style>

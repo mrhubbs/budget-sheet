@@ -1,54 +1,40 @@
 <template>
-  <div class='container'>
-    <div class='col-12'>
-      <div class='row'>
-        <div class='app'>
-          <div class='app-header'>
-            <h1>{{ appName }}</h1>
+  <div>
+    <div class='container'>
+      <div class='col-12'>
+        <div class='row'>
+          <div class='app'>
+            <div class='app-header'>
+              <h1>{{ appName }}</h1>
+            </div>
           </div>
         </div>
+
+        <div class='row'>
+          <sheet/>
+        </div>
+
+        <ui-button
+          @click=addRow
+        >
+          Add Row
+        </ui-button>
       </div>
-
-      <div class='row'>
-        <sheet
-          :rows=$store.state.sheet.rows
-        />
-      </div>
-
-      <ui-button
-        @click=recalculate
-      >Recalc</ui-button>
-
-      <ui-snackbar-container
-        :duration=3500
-        :queue-snackbars=true
-        position=center
-        ref="snackbarContainer"
-      />
     </div>
+
+    <ui-snackbar-container
+      :duration=3500
+      :queue-snackbars=true
+      position=center
+      ref="snackbarContainer"
+    />
   </div>
-
-  <!-- <v-dialog
-    v-model="popups.error"
-    lazy
-    absolute
-  >
-    <v-card class="red lighten-1">
-      <v-card-title class="title">Error</v-card-title>
-      <v-card-text>{{ popups.errorText }}</v-card-text>
-      <v-card-actions>
-        <v-spacer/>
-        <v-btn flat @click.native.stop="popups.error = false">Close</v-btn>
-      </v-card-actions>
-    </v-card>
-  </v-dialog> -->
-
-
 </template>
 
 <script>
   import Package from './package'
   import Sheet from './components/sheet'
+  import EventBus from './EventBus'
 
   export default {
     name: 'app',
@@ -59,12 +45,20 @@
       }
     },
     methods: {
-      recalculate () {
-        this.$store.commit('recalculate')
-      },
       createSnackbar (opts) {
         this.$refs.snackbarContainer.createSnackbar(opts)
+      },
+      addRow () {
+        this.$store.commit('addRow')
       }
+    },
+    mounted () {
+      EventBus.$on('error', (event) => {
+        this.createSnackbar({
+          message: event.error.message,
+          duration: 5000
+        })
+      })
     }
   }
 </script>
