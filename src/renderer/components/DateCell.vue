@@ -16,9 +16,9 @@
   import moment from 'moment'
 
   import Cell from './Cell'
-  import EventBus from '../EventBus'
+  import { showError } from '../EventBus'
 
-  const dateValidRegExp = /^([1-9][0-2]?-[1-9][0-2]?-(?:[0-9]{2}|[0-9]{4}))$/
+  const dateValidRegExp = /^([1-9][0-2]?-[1-9][0-9]?-(?:[0-9]{2}|[0-9]{4}))$/
 
   export default {
     name: 'date-cell',
@@ -29,12 +29,8 @@
         let invalid = (dateValidRegExp.exec(v) === null)
 
         if (invalid) {
-          this.$store.commit('setDate', { transIdx: this.transIdx, invalid: true })
-          EventBus.$emit(
-            'error',
-            {
-              error: new Error('Date format must be M(M)-D(D)-YY(YY)')
-            })
+          this.$store.commit('setDate', { rowIdx: this.rowIdx, invalid: true })
+          showError(new Error('Date format must be M(M)-D(D)-YY(YY)'))
         } else {
           // we assume the entry is in the form MM-DD-YY or MM-DD-YYYY
           // Moment wants YYYY-MM-DD
@@ -45,7 +41,7 @@
           let momentFriendlyDate = [year, month, day].join('-')
 
           this.$store.commit('setDate', {
-            transIdx: this.transIdx,
+            rowIdx: this.rowIdx,
             date: moment(momentFriendlyDate)
           })
           this.localValue = v

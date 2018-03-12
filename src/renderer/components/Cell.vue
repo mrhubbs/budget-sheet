@@ -1,13 +1,14 @@
 <template>
   <div class='cell'>
     <ui-textbox
-       v-if="!overrideContents"
+      v-if="!overrideContents"
       v-model=localValue
+      @input="$emit('input', $event)"
+      @change="$emit('change', $event); changeValue($event)"
       :hidden=hidden
       :readonly=readonly
       class='cell-entry'
       :class="{ 'cell-invalid': invalid, 'cell-entry-readonly': readonly }"
-      @change=changeValue
     />
     <slot v-else :hidden=hidden>
 
@@ -21,7 +22,10 @@
   export default {
     name: 'cell',
     extends: BaseCell,
-    props: [ 'value', 'hidden', 'invalid', 'readonly', 'transIdx', 'overrideContents' ],
+    props: [
+      'value', 'hidden', 'invalid', 'wide',
+      'readonly', 'rowIdx', 'overrideContents'
+    ],
     data () {
       return {
         localValue: this.value
@@ -29,11 +33,18 @@
     },
     methods: {
       changeValue (v) { /* override */ }
+    },
+    watch: {
+      value (v) {
+        this.localValue = v
+      }
     }
   }
 </script>
 
 <style lang="scss" scoped>
+  @import '../palette.scss';
+
   // build upon the base 'cell' class
   .cell {
     justify-content: space-around;

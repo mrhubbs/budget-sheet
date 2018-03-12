@@ -6,35 +6,41 @@ import moment from 'moment'
 export default {
   // caches the last-open paths for various file dialogs
   fileDialogs: {},
+  sheetPath: undefined,
   sheet: {
-    cols: {
-      // 'dates', 'categories.transactions', and 'totals' must always be the same length
-      dates: [{
-          date: moment('2018-02-08'),
-          invalid: false
-        }, {
-          date: moment('2018-02-09'),
-          invlaid: false
-        }
-      ],
-      categories: [{
-        id: 0,
-        transactions: [{
-          amount: 17
-        }, {
-          amount: 10
-        }]
-      }, {
-        id: 1,
-        transactions: [{
-          amount: -20
-        }, {
-          amount: 100
-        }]
-      }],
-      totals: [ ]
-    },
-    // Rows we show the category totals for
-    totalRows: [ 1 ]
+    // `categories` is an array of objects, each looking like this:
+    // {
+    //   name: 'saved monthly',
+    //   startingAmount: 100,
+    //   order: 1,
+    //   invalidName: false,
+    //   invalidStartingAmount: false
+    // },
+    // ...
+    categories: [],
+    // `rows` is an array of objects, each looking like this:
+    // {
+    //   note: {
+    //     note: 'This was the time I did the thing...'
+    //   },
+    //   date: {
+    //     date: moment(),
+    //     invalid: false
+    //   },
+    //   // NOTE: must be same number of transactions as categories
+    //   transactions: {
+    //     'saved monthly': {
+    //       amount: 100,
+    //       invalid: false
+    //     },
+    //     ...
+    //   },
+    //   total: {
+    //     amount: 315,
+    //     invalid: false
+    //   },
+    //   showTotal: true
+    // }
+    rows: []
   }
 }

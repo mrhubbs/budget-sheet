@@ -29,6 +29,7 @@
     "electron": "1.7.9",
     "electron-json-storage-sync": "1.1.0",
     "fs-jetpack": "1.1.0",
+    "js-yaml": "3.11.0",
     "keen-ui": "1.0.1",
     "lodash": "4.17.4",
     "moment": "2.18.1",

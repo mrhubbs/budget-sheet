@@ -10,6 +10,7 @@
         @change=changeAmount
         :class="{ 'cell-invalid': cell.invalid }"
       />
+      <!-- TODO: make this not focusable -->
       <ui-textbox
         v-model='runningTotal'
         class='cell-entry cell-entry-readonly'
@@ -30,7 +31,7 @@
     name: 'amount-cell',
     extends: BaseCell,
     props: [
-      'cell', 'showTotal', 'catIdx', 'transIdx'
+      'cell', 'showTotal', 'catName', 'rowIdx'
     ],
     data () {
       return {
@@ -47,8 +48,8 @@
           v = Math.round(v * 100.0) / 100.0
 
           this.$store.dispatch('setAmount', {
-            catIdx: this.catIdx,
-            transIdx: this.transIdx,
+            catName: this.catName,
+            rowIdx: this.rowIdx,
             amount: v
           })
 
@@ -56,8 +57,8 @@
           this.amount = formatMoney(v)[0]
         } else {
           this.$store.dispatch('setAmount', {
-            catIdx: this.catIdx,
-            transIdx: this.transIdx,
+            catName: this.catName,
+            rowIdx: this.rowIdx,
             invalid: true
           })
         }

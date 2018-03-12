@@ -1,5 +1,4 @@
 
-import './error'
 import store from './store'
 
 const { dialog } = require('electron').remote
@@ -9,19 +8,25 @@ const { dialog } = require('electron').remote
 // mechanism to get the default path.
 const fileDialogCache = {
   // A dialog for picking a data package
-  dataPackage: {
-    title: 'Pick Data Package',
+  openBudgetSheet: {
+    title: 'Open Budget Sheet',
     getDefaultPath: () => process.env.HOME,
-    filters: [{name: 'Data Package', extensions: ['tar.gz', 'gz']}],
+    filters: [{name: 'Budget Sheet', extensions: ['yaml', 'yml']}],
     properties: ['openFile']
+  },
+  saveBudgetSheet: {
+    title: 'Save Budget Sheet',
+    getDefaultPath: () => process.env.HOME,
+    filters: [{name: 'Budget Sheet', extensions: ['yaml', 'yml']}],
+    properties: ['saveFile']
   }
 }
 
-const openFileDialog = (type, overrideDefaultPath) => {
+export const openFileDialog = (type, overrideDefaultPath) => {
   const dialogOptions = fileDialogCache[type]
 
   if (dialogOptions === undefined) {
-    throw Error(`Got request to open unknown file dialog of type ${type}`)
+    throw new Error(`Got request to open unknown file dialog of type ${type}`)
   }
 
   // for defaultPath we pass in either the override, the last-cached path for
@@ -46,4 +51,26 @@ const openFileDialog = (type, overrideDefaultPath) => {
   return p
 }
 
-export { openFileDialog }
+export const saveFileDialog = (type, overrideDefaultPath) => {
+  const dialogOptions = fileDialogCache[type]
+
+  if (dialogOptions === undefined) {
+    throw new Error(`Got request to open unknown file dialog of type ${type}`)
+  }
+
+  // for defaultPath we pass in either the override, the last-cached path for
+  // this type of dialog, or the default path for this dialog
+  let p: any = dialog.showSaveDialog(
+    Object.assign(
+      dialogOptions,
+      {defaultPath: overrideDefaultPath || store.state.fileDialogs[type] || dialogOptions.getDefaultPath()}))
+
+  if (p !== undefined) {
+    // if we selected a path, cache it
+    if (p.length > 0) {
+      store.commit('setFileDialog', {section: type, path: p[0]})
+    }
+  }
+
+  return p
+}

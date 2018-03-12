@@ -1,36 +1,25 @@
 
+import _ from 'lodash'
 
 export default {
-  // Maps the columns-first data into rows first
-  sheetAsRows: (state) => {
-    console.log('hi')
-    let rows = []
-    const sheet = state.sheet
-    const cols = sheet.cols
+  // Get the highest category order
+  highestCategoryOrder: (state) => {
+    let order = -1
+    _.each(state.sheet.categories, (cat) => {
+      if (cat.order > order) order = cat.order
+    })
 
-    // re-map the data into row-based from column-based
-    for (let i = 0; i < cols.dates.length; i++) {
-      // TODO: add robustness in case 'dates', 'categories.transactions', and 'totals'
-      // are not the same length
-      rows.push({
-        idx: i,
-        date: {
-          ...cols.dates[i]
-        },
-        // TODO: order categories by set order
-        categories: cols.categories.map((cat, ci) => {
-          return {
-            idx: ci,
-            ...cat.transactions[i]
-          }
-        }),
-        total: {
-          ...cols.totals[i]
-        },
-        showTotal: sheet.totalRows.includes(i)
-      })
-    }
-
-    return rows
-  }
+    return order
+  },
+  orderedCategories: (state) => _.sortBy(state.sheet.categories, [c => c.order]),
+  // Sort the transactions according to the order of the categories
+  // This converts the dictionary of transactions into an enumerable (with
+  // index) array
+  orderedTransactions: (state, { orderedCategories }) => (transactions) => {
+    // Build the array of transactions based on the order of categories
+    return _.map(orderedCategories, oCat =>
+      [oCat.name, transactions[oCat.name]]
+    )
+  },
+  budgetSheetOpen: (state) => state.sheetPath !== undefined
 }
