@@ -10,13 +10,15 @@
       :categories=$store.getters.orderedCategories
     />
 
-    <!-- transactions -->
-    <sheet-row v-for="[rowIdx, row] in enumerate(sheet.rows)"
-      :key=rowIdx
-      :row=row
-      :rowIdx=rowIdx
-      />
-    </sheet-row>
+    <div style='overflow: auto; max-height: calc(100vh - 250px);'>
+      <!-- transactions -->
+      <sheet-row v-for="[rowIdx, row] in enumerate(sheet.rows)"
+        :key=rowIdx
+        :row=row
+        :rowIdx=rowIdx
+        />
+      </sheet-row>
+    </div>
   </div>
 </template>
 

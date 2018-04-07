@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <note value="" :readonly="true"/>
+    <note value="starting amounts" :readonly="true"/>
 
     <!-- Just an empty cell -->
     <cell

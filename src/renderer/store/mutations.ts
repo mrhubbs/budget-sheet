@@ -229,4 +229,31 @@ export default {
     }
     jetpack.write(path, yaml.dump(sheetData))
   },
+  'row/moveUp': ( state, { rowIdx }) => {
+    if (rowIdx < 1) {
+      // nothing to do
+      return
+    }
+
+    let rows = state.sheet.rows
+
+    const prev = rows[rowIdx-1]
+    Vue.set(rows, rowIdx-1, rows[rowIdx])
+    Vue.set(rows, rowIdx, prev)
+  },
+  'row/moveDown': ( state, { rowIdx }) => {
+    if (rowIdx >= state.sheet.rows.length-1) {
+      // nothing to do
+      return
+    }
+
+    let rows = state.sheet.rows
+
+    const next = rows[rowIdx+1]
+    Vue.set(rows, rowIdx+1, rows[rowIdx])
+    Vue.set(rows, rowIdx, next)
+  },
+  'row/delete': ( state, { rowIdx }) => {
+    Vue.delete(state.sheet.rows, rowIdx)
+  }
 }

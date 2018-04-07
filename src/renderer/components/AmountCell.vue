@@ -68,6 +68,12 @@
       runningTotal () {
         return formatMoney(this.cell.runningTotal)[0]
       }
+    },
+    watch: {
+      'cell.amount' (v) {
+        // TODO: create a better prop flow so
+        this.amount = formatMoney(v)[0]
+      }
     }
   }
 </script>

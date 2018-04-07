@@ -48,5 +48,19 @@ export default {
     let path = (args !== undefined && args.path !== undefined) ?
       args.path : state.sheetPath
     commit('saveBudgetSheet', { ...args, path: path })
+  },
+  'row/moveUp' ( { commit }, args) {
+    commit('row/moveUp', args)
+    // TODO: don't think we need to recalc
+    commit('recalculate')
+  },
+  'row/moveDown' ( { commit }, args) {
+    commit('row/moveDown', args)
+    // TODO: don't think we need to recalc
+    commit('recalculate')
+  },
+  'row/delete' ( { commit }, args) {
+    commit('row/delete', args)
+    commit('recalculate')
   }
 }

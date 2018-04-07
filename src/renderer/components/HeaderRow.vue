@@ -13,7 +13,9 @@
       :value=cat.name
       :invalid=cat.invalidName
       @change="renameCategory(cat, $event, cat.name)"
-    />
+      style="position: relative;"
+    >
+    </cell>
 
     <cell
       value="Total"
@@ -39,7 +41,18 @@ export default {
       } catch (e) {
         showError(e)
       }
+    },
+    minimizeCategory () {
+      console.log('min')
     }
   }
 }
 </script>
+
+<style lang='scss' scoped>
+  .cat-minus {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+</style>

@@ -10,7 +10,7 @@
       class='cell-entry'
       :class="{ 'cell-invalid': invalid, 'cell-entry-readonly': readonly }"
     />
-    <slot v-else :hidden=hidden>
+    <slot>
 
     </slot>
   </div>

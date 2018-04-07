@@ -47,5 +47,8 @@ A simple collection of UI components (buttons, checkboxes, sliders, etc.) design
 
 ## TODO
 
-  - Implement remove row and remove category
-  - ...
+  - Implement remove category
+  - Re-order rows and categories
+  - Make it possible to rename categories, and retain a history of the rename
+  - Make it so you only see one category at a time, by default
+  - Use moneysafe: https://www.npmjs.com/package/moneysafe to handle money calculations
