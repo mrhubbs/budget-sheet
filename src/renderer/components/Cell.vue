@@ -1,16 +1,15 @@
 <template>
   <div class='cell'>
     <ui-textbox
-      v-if="!overrideContents"
+      v-if="!overrideContents && !hidden"
       v-model=localValue
       @input="$emit('input', $event)"
       @change="$emit('change', $event); changeValue($event)"
-      :hidden=hidden
       :readonly=readonly
       class='cell-entry'
       :class="{ 'cell-invalid': invalid, 'cell-entry-readonly': readonly }"
     />
-    <slot>
+    <slot v-else-if="!hidden">
 
     </slot>
   </div>
