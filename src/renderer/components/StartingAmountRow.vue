@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div class="flex flex-row">
     <note value="starting amounts" :readonly="true"/>
 
     <!-- Just an empty cell -->

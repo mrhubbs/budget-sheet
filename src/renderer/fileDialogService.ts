@@ -10,7 +10,7 @@ const fileDialogCache = {
   // A dialog for picking a data package
   openBudgetSheet: {
     title: 'Open Budget Sheet',
-    getDefaultPath: () => process.env.HOME,
+    getDefaultPath: () => `${process.env.HOME}/Dropbox/Documents/Household/Financial/Budget Sheets`,
     filters: [{name: 'Budget Sheet', extensions: ['yaml', 'yml']}],
     properties: ['openFile']
   },

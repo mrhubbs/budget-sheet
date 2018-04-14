@@ -10,7 +10,7 @@
       :categories=$store.getters.orderedCategories
     />
 
-    <div style='overflow: auto; max-height: calc(100vh - 250px);'>
+    <div class='w-full flex flex-col overflow-y-auto' style='max-height: calc(100vh - 250px);'>
       <!-- transactions -->
       <sheet-row v-for="[rowIdx, row] in enumerate(sheet.rows)"
         :key=rowIdx

@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div class="flex flex-row mb-4">
     <note value="" :readonly="true"/>
 
     <cell

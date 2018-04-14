@@ -1,23 +1,21 @@
 <template>
-  <div>
-    <div class='container-fluid'>
-      <div class='col-12'>
-        <div class='row'>
-          <div class="col-4">
-            <h1>{{ appName }}</h1>
-          </div>
-
-          <div class='col-4'>
-            <ui-button @click=open>Open</ui-button>
-            <ui-button @click=save :disabled="!$store.getters.budgetSheetOpen">Save</ui-button>
-            <ui-button @click=saveAs>Save As</ui-button>
-          </div>
+  <div class='w-5/6 mx-auto'>
+    <div class='w-full'>
+      <div class='w-full'>
+        <div class="w-1/3 inline-block">
+          <h1>{{ appName }}</h1>
         </div>
 
-        <div class='row'>
-          <sheet/>
+        <div class='w-1/3 inline-block mb-2'>
+          <ui-button @click=open>Open</ui-button>
+          <ui-button @click=save :disabled="!$store.getters.budgetSheetOpen">Save</ui-button>
+          <ui-button @click=saveAs>Save As</ui-button>
         </div>
+      </div>
 
+      <sheet/>
+
+      <div class="w-full mt-4">
         <ui-button
           @click=addRow
         >

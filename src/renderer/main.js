@@ -1,4 +1,7 @@
-import 'bootstrap/dist/css/bootstrap.css'
+import 'tailwindcss/dist/preflight.min.css'
+import 'tailwindcss/dist/components.min.css'
+import 'tailwindcss/dist/utilities.min.css'
+
 import '../../static/fonts.css'
 
 import Vue from 'vue'

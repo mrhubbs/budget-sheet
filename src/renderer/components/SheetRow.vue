@@ -1,5 +1,5 @@
 <template>
-  <div class='row'>
+  <div class='w-full flex flex-row flex-no-shrink'>
     <note
       :value=row.note.note
       @change="$store.dispatch('setNote', { rowIdx, note: $event })"

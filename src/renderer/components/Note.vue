@@ -1,5 +1,6 @@
 <template>
   <ui-textbox
+    class='w-48'
     v-model=localValue
     :readonly=readonly
     :multi-line=true
